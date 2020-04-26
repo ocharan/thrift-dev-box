@@ -9,19 +9,10 @@ set_language() {
   echo "export LANGUAGE=en_US.UTF-8\n" >> ~/.profile
 }
 
-# Install RVM
-install_rvm() {
-  echo 'Installing RVM'
-  gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB \
-  curl -sSL https://get.rvm.io | bash
-  source $HOME/.rvm/scripts/rvm
-  rvm get head
-}
-
 # Install Matz Ruby Interpreter and common gems
 install_ruby() {
   echo 'Installing Ruby 2.7'
-  sudo apt-get install -y ruby \ 
+  sudo apt-get install -y ruby \
     bundler \
     ri \
     ruby-dev  > /dev/null 2>&1
@@ -30,17 +21,25 @@ install_ruby() {
 # Install Python 3
 install_python() {
   echo 'Installing Python 3'
-  sudo apt-get install -y python-all \
-    python-all-dbg \
-    python-all-dev \
-    python-setuptools \
+  sudo apt-get install -y python3-all \
+    python3-all-dbg \
+    python3-all-dev \
+    python3-setuptools \
     python3-pip > /dev/null 2>&1
+}
+
+# Install Go
+install_go() {
+  echo 'Installing Go 1.3'
+  sudo apt-get install -y golang \
+  golang-go \
+   > /dev/null 2>&1
 }
 
 # Install Java 8
 install_java() {
   echo 'Installing Java 8'
-  sudo apt-get install -y openjdk-8-jdk \
+  sudo apt-get install -y openjdk-8-jdk
     ant \
     maven \
     gradle > /dev/null 2>&1
@@ -48,7 +47,9 @@ install_java() {
 
 # Install Apache Thrift
 install_thrift() {
-  sudo apt-get install -y thrift-compiler python3-thrift > /dev/null 2>&1
+  sudo apt-get install -y thrift-compiler \
+  ruby-thrift \
+  python3-thrift > /dev/null 2>&1
 }
 
 # Remove unused software
@@ -58,9 +59,9 @@ clean_up() {
 
 setup() {
   set_language
-  install_rvm
   install_ruby
   install_python
+  install_go
   install_java
   install_thrift
   clean_up
