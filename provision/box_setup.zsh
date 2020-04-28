@@ -45,12 +45,19 @@ install_java() {
     gradle > /dev/null 2>&1
 }
 
+# Install PHP 7.4
+install_php() {
+  echo 'Installing PHP 7.4'
+  sudo apt-get install -y php-cli > /dev/null 2>&1
+}
+
 # Install Apache Thrift
 install_thrift() {
   sudo apt-get install -y thrift-compiler \
   ruby-thrift \
   python3-thrift \
-  golang-thrift-dev > /dev/null 2>&1
+  golang-thrift-dev \
+  php-thrift > /dev/null 2>&1
 }
 
 # Remove unused software
@@ -64,6 +71,7 @@ setup() {
   install_python
   install_go
   install_java
+  install_php
   install_thrift
   clean_up
 }
